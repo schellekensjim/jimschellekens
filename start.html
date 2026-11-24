@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Nexi Startpagina</title>
+<title>Startpagina</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap">
@@ -77,7 +77,7 @@ body {
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 
-/* Blobs */
+/* Blobs – meer beweging */
 .blobs { position: fixed; inset: 0; overflow: hidden; pointer-events: none; }
 .blob {
   position: absolute;
@@ -93,14 +93,14 @@ body {
 }
 @keyframes drift {
   from { transform: translate3d(0, 0, 0) scale(1); }
-  to   { transform: translate3d(var(--dx), var(--dy), 0) scale(1.1); }
+  to   { transform: translate3d(var(--dx), var(--dy), 0) scale(1.18); }
 }
-.b1 { --c: #2F6BFF; --x: 30%;  --y: -4%;  --w: 100vw; --h: 72vh;  --o: 0.95; --dx: 14vw;  --dy: 7vh;  --t: 17s; }
-.b2 { --c: #9B7BFF; --x: 100%; --y: 12%;  --w: 72vw;  --h: 85vh;  --o: 0.8;  --dx: -12vw; --dy: 9vh;  --t: 21s; --d: -6s; }
-.b3 { --c: #35C6FF; --x: -2%;  --y: 62%;  --w: 58vw;  --h: 94vh;  --o: 0.75; --dx: 11vw;  --dy: -9vh; --t: 19s; --d: -3s; }
-.b4 { --c: #FF9F4A; --x: 4%;   --y: 104%; --w: 94vw;  --h: 76vh;  --o: 0.95; --dx: 14vw;  --dy: -8vh; --t: 23s; --d: -9s; }
-.b5 { --c: #FF5FA2; --x: 92%;  --y: 104%; --w: 94vw;  --h: 76vh;  --o: 0.95; --dx: -14vw; --dy: -9vh; --t: 20s; --d: -12s; }
-.b6 { --c: #FFD36B; --x: 55%;  --y: 108%; --w: 68vw;  --h: 48vh;  --o: 0.55; --dx: 12vw;  --dy: -7vh; --t: 25s; --d: -15s; }
+.b1 { --c: #2F6BFF; --x: 28%;  --y: -6%;  --w: 110vw; --h: 78vh;  --o: 0.95; --dx: 22vw;  --dy: 12vh;  --t: 14s; }
+.b2 { --c: #9B7BFF; --x: 105%; --y: 8%;   --w: 80vw;  --h: 90vh;  --o: 0.82; --dx: -20vw; --dy: 14vh;  --t: 17s; --d: -5s; }
+.b3 { --c: #35C6FF; --x: -6%;  --y: 58%;  --w: 68vw;  --h: 100vh; --o: 0.78; --dx: 18vw;  --dy: -14vh; --t: 15s; --d: -2s; }
+.b4 { --c: #FF9F4A; --x: 2%;   --y: 108%; --w: 100vw; --h: 82vh;  --o: 0.95; --dx: 20vw;  --dy: -13vh; --t: 19s; --d: -8s; }
+.b5 { --c: #FF5FA2; --x: 95%;  --y: 110%; --w: 100vw; --h: 82vh;  --o: 0.95; --dx: -22vw; --dy: -14vh; --t: 16s; --d: -11s; }
+.b6 { --c: #FFD36B; --x: 52%;  --y: 112%; --w: 75vw;  --h: 55vh;  --o: 0.6;  --dx: 18vw;  --dy: -11vh; --t: 21s; --d: -13s; }
 
 /* Begroeting */
 .center {
@@ -147,7 +147,8 @@ h1 .name { color: var(--accent); }
   cursor: pointer;
 }
 .search-fab:hover,
-.search-fab:focus-within {
+.search-fab:focus-within,
+.search-fab.open {
   width: min(340px, calc(100vw - 100px));
   padding: 0 14px;
   gap: 10px;
@@ -163,7 +164,8 @@ h1 .name { color: var(--accent); }
   pointer-events: none;
 }
 .search-fab:hover .ico,
-.search-fab:focus-within .ico {
+.search-fab:focus-within .ico,
+.search-fab.open .ico {
   margin-left: 0;
   color: var(--accent);
 }
@@ -182,13 +184,14 @@ h1 .name { color: var(--accent); }
   transition: opacity 0.2s ease 0.04s;
 }
 .search-fab:hover input,
-.search-fab:focus-within input {
+.search-fab:focus-within input,
+.search-fab.open input {
   width: auto;
   opacity: 1;
 }
 .search-fab input::placeholder { color: var(--muted); }
 
-/* ===== Nexi rechtsonder (compact) ===== */
+/* ===== Nexi rechtsonder – soepeler openen ===== */
 .nexi-fab {
   position: fixed;
   z-index: 6;
@@ -206,22 +209,20 @@ h1 .name { color: var(--accent); }
   display: flex;
   flex-direction: column;
   transition:
-    width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-    height 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-    border-radius 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     border-color 0.15s ease;
 }
 .nexi-fab:hover,
 .nexi-fab.open,
 .nexi-fab:focus-within {
-  width: min(320px, calc(100vw - 32px));
-  height: auto;
-  max-height: 220px;
+  width: min(300px, calc(100vw - 32px));
+  height: 158px;                 /* vaste hoogte = soepele animatie */
   border-radius: 18px;
   border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
 }
 
-/* Logo (alleen zichtbaar als gesloten) */
 .nexi-toggle {
   flex: none;
   width: 48px;
@@ -232,12 +233,16 @@ h1 .name { color: var(--accent); }
   background: transparent;
   cursor: pointer;
   padding: 0;
+  transition: opacity 0.15s ease;
 }
 .nexi-fab:hover .nexi-toggle,
 .nexi-fab.open .nexi-toggle,
 .nexi-fab:focus-within .nexi-toggle {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
 }
+
 .mark {
   width: 30px;
   height: 30px;
@@ -252,31 +257,31 @@ h1 .name { color: var(--accent); }
 .mark.fallback { background: var(--mark-bg); color: var(--mark-fg); }
 .mark img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* Compact paneel */
 .nexi-panel {
-  display: none;
+  display: flex;
   flex-direction: column;
-  min-height: 0;
+  height: 100%;
   opacity: 0;
-  transition: opacity 0.18s ease 0.06s;
+  pointer-events: none;
+  transition: opacity 0.2s ease 0.08s;
 }
 .nexi-fab:hover .nexi-panel,
 .nexi-fab.open .nexi-panel,
 .nexi-fab:focus-within .nexi-panel {
-  display: flex;
   opacity: 1;
+  pointer-events: auto;
 }
 
-/* Alleen laatste antwoord */
 .nexi-last {
-  padding: 12px 14px 6px;
+  flex: 1;
+  padding: 12px 14px 4px;
   font-size: 0.9rem;
   line-height: 1.45;
   color: var(--fg);
-  max-height: 110px;
   overflow-y: auto;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+  min-height: 0;
 }
 .nexi-last:empty { display: none; }
 .nexi-last.system {
@@ -285,12 +290,11 @@ h1 .name { color: var(--accent); }
   font-size: 0.85rem;
 }
 
-/* Invoerbalk */
 .nexi-composer {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 10px 12px;
+  padding: 6px 10px 12px;
   flex-shrink: 0;
 }
 .nexi-composer input {
@@ -305,9 +309,7 @@ h1 .name { color: var(--accent); }
   padding: 10px 14px;
   outline: none;
 }
-.nexi-composer input:focus {
-  border-color: var(--accent);
-}
+.nexi-composer input:focus { border-color: var(--accent); }
 .nexi-composer input::placeholder { color: var(--muted); }
 .nexi-send {
   flex: none;
@@ -354,17 +356,17 @@ h1 .name { color: var(--accent); }
   <h1>Hallo, <span class="name">Jim</span>.</h1>
 </main>
 
-<!-- Zoekbalk linksonder -->
+<!-- Zoekbalk -->
 <form class="search-fab" id="searchForm" role="search" title="Zoeken">
   <svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
     <circle cx="11" cy="11" r="7"></circle>
     <path d="m20 20-3.5-3.5"></path>
   </svg>
   <label class="sr" for="q">Zoekopdracht</label>
-  <input id="q" type="search" name="q" placeholder="Zoek op Bing" autocomplete="off">
+  <input id="q" type="search" name="q" placeholder="Zoek op Bing" autocomplete="off" enterkeyhint="search">
 </form>
 
-<!-- Nexi rechtsonder (compact) -->
+<!-- Nexi -->
 <div class="nexi-fab" id="nexiFab" title="Nexi">
   <button type="button" class="nexi-toggle" id="nexiToggle" aria-label="Open Nexi">
     <span class="mark" id="nexiMark">
@@ -385,13 +387,17 @@ h1 .name { color: var(--accent); }
 
 <script>
 (function () {
-  /* ========== Zoeken ========== */
   var searchForm = document.getElementById('searchForm');
   var searchInput = document.getElementById('q');
+  var nexiFab = document.getElementById('nexiFab');
+  var nexiInput = document.getElementById('nexiInput');
+  var nexiToggle = document.getElementById('nexiToggle');
 
+  /* ===== Zoeken ===== */
   searchForm.addEventListener('click', function () {
     if (document.activeElement !== searchInput) searchInput.focus();
   });
+
   searchForm.addEventListener('submit', function (ev) {
     ev.preventDefault();
     var v = searchInput.value.trim();
@@ -403,32 +409,48 @@ h1 .name { color: var(--accent); }
     a.click();
     a.remove();
   });
+
   window.addEventListener('pageshow', function () {
     searchInput.value = '';
+    searchForm.classList.remove('open');
     searchInput.blur();
+    nexiFab.classList.remove('open');
   });
 
-  /* ========== Logo fallback ========== */
-  var mark = document.getElementById('nexiMark');
-  var logo = document.getElementById('nexiLogo');
-  var letter = document.getElementById('nexiN');
-  function logoFallback() {
-    mark.classList.add('fallback');
-    letter.hidden = false;
-    if (logo.parentNode) logo.parentNode.removeChild(logo);
-  }
-  logo.addEventListener('error', logoFallback);
-  if (logo.complete && logo.naturalWidth === 0) logoFallback();
+  /* Typen opent zoekvak */
+  document.addEventListener('keydown', function (e) {
+    var tag = document.activeElement && document.activeElement.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
 
-  /* ========== Open/dicht ========== */
-  var nexiFab = document.getElementById('nexiFab');
-  var nexiToggle = document.getElementById('nexiToggle');
-  var nexiInput = document.getElementById('nexiInput');
+    if (e.key.length === 1 || e.key === 'Backspace') {
+      e.preventDefault();
+      searchForm.classList.add('open');
+      searchInput.focus();
+      if (e.key === 'Backspace') {
+        searchInput.value = searchInput.value.slice(0, -1);
+      } else {
+        searchInput.value += e.key;
+      }
+    }
+  }, true);
 
+  /* ===== Escape sluit alles ===== */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      searchForm.classList.remove('open');
+      searchInput.blur();
+      searchInput.value = '';
+      nexiFab.classList.remove('open');
+      nexiInput.blur();
+    }
+  });
+
+  /* ===== Nexi open/dicht ===== */
   nexiToggle.addEventListener('click', function (e) {
     e.stopPropagation();
     nexiFab.classList.add('open');
-    setTimeout(function () { nexiInput.focus(); }, 40);
+    setTimeout(function () { nexiInput.focus(); }, 50);
   });
 
   nexiFab.addEventListener('mouseleave', function () {
@@ -445,14 +467,25 @@ h1 .name { color: var(--accent); }
     }, 120);
   });
 
-  /* ========== Lerende Nexi (compact) ========== */
+  /* ===== Logo fallback ===== */
+  var mark = document.getElementById('nexiMark');
+  var logo = document.getElementById('nexiLogo');
+  var letter = document.getElementById('nexiN');
+  function logoFallback() {
+    mark.classList.add('fallback');
+    letter.hidden = false;
+    if (logo.parentNode) logo.parentNode.removeChild(logo);
+  }
+  logo.addEventListener('error', logoFallback);
+  if (logo.complete && logo.naturalWidth === 0) logoFallback();
+
+  /* ===== Lerende Nexi ===== */
   var LEARN_KEY = 'nexi_start_learned_v1';
   var UNKNOWN_BELOW = 0.35;
   var qaDatabase = [];
   var learned = [];
   var pendingLearn = null;
   var thinking = false;
-  var lastReply = { text: 'Hoi! Stel me een vraag. Weet ik iets niet, dan leer ik van jouw volgende antwoord.', system: true };
 
   try {
     learned = JSON.parse(localStorage.getItem(LEARN_KEY) || '[]');
@@ -633,12 +666,10 @@ h1 .name { color: var(--accent); }
     return false;
   }
 
-  /* Alleen laatste antwoord tonen */
   var lastEl = document.getElementById('nexiLast');
   var sendBtn = document.getElementById('nexiSend');
 
   function showLast(text, isSystem) {
-    lastReply = { text: text, system: !!isSystem };
     lastEl.textContent = text;
     lastEl.className = 'nexi-last' + (isSystem ? ' system' : '');
   }
@@ -691,7 +722,6 @@ h1 .name { color: var(--accent); }
       return;
     }
 
-    /* Auto-learn */
     if (pendingLearn && !looksLikeQuestion(text)) {
       var lower = text.toLowerCase().trim();
       if (text.length >= 3 && !SKIP.has(lower)) {
@@ -728,7 +758,7 @@ h1 .name { color: var(--accent); }
   });
 
   /* Init */
-  showLast(lastReply.text, true);
+  showLast('Hoi! Stel me een vraag. Weet ik iets niet, dan leer ik van jouw volgende antwoord.', true);
   loadResponses();
 })();
 </script>
