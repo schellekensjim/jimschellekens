@@ -3,248 +3,242 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Startpagina</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<title>Nexi Startpagina</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap">
 <style>
-/* Layout: one screen. Greeting centered at the top, search with category chips centered near the bottom, a small Nexi pill fixed bottom right. Soft daypart glow behind. */
 :root {
-  --bg: #F2F4F8;
-  --surface: #FFFFFF;
+  --bg: #EEF2FF;
   --fg: #0F1824;
-  --muted: #5B6778;
-  --line: #DCE2EA;
   --accent: #2458F5;
   --accent-fg: #FFFFFF;
-  --chip-bg: #E4EBFF;
-  --chip-fg: #1B43C2;
+  --muted: #566274;
+  --surface: #FFFFFF;
+  --glass: rgba(255, 255, 255, 0.72);
+  --line: rgba(15, 24, 36, 0.12);
   --mark-bg: #0F1824;
   --mark-fg: #FFFFFF;
-  --shadow: 0 14px 34px -16px rgba(15, 24, 36, 0.28);
-  --glow: #BFD9FF;
-  --glow2: #E3E9FF;
-  --glow-strength: 62%;
-  --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
-  --font-body: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif;
+  --shadow: 0 18px 44px -22px rgba(15, 24, 36, 0.35);
+  --bot-bg: rgba(255,255,255,0.88);
+  --k: 1;
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Instrument Sans', system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0B1017;
-    --surface: #141C27;
-    --fg: #EBF0F6;
-    --muted: #95A2B4;
-    --line: #243040;
+    --fg: #F1F5FA;
     --accent: #7AA0FF;
     --accent-fg: #0A1222;
-    --chip-bg: #1C2A4A;
-    --chip-fg: #B3C8FF;
+    --muted: #A3AFC0;
+    --surface: #141C27;
+    --glass: rgba(20, 28, 39, 0.72);
+    --line: rgba(255, 255, 255, 0.14);
     --mark-bg: #7AA0FF;
     --mark-fg: #0A1222;
-    --shadow: 0 14px 34px -16px rgba(0, 0, 0, 0.7);
-    --glow-strength: 24%;
+    --shadow: 0 18px 44px -22px rgba(0, 0, 0, 0.8);
+    --bot-bg: rgba(20, 28, 39, 0.92);
+    --k: 0.6;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0B1017;
-  --surface: #141C27;
-  --fg: #EBF0F6;
-  --muted: #95A2B4;
-  --line: #243040;
+  --fg: #F1F5FA;
   --accent: #7AA0FF;
   --accent-fg: #0A1222;
-  --chip-bg: #1C2A4A;
-  --chip-fg: #B3C8FF;
+  --muted: #A3AFC0;
+  --surface: #141C27;
+  --glass: rgba(20, 28, 39, 0.72);
+  --line: rgba(255, 255, 255, 0.14);
   --mark-bg: #7AA0FF;
   --mark-fg: #0A1222;
-  --shadow: 0 14px 34px -16px rgba(0, 0, 0, 0.7);
-  --glow-strength: 24%;
+  --shadow: 0 18px 44px -22px rgba(0, 0, 0, 0.8);
+  --bot-bg: rgba(20, 28, 39, 0.92);
+  --k: 0.6;
   color-scheme: dark;
 }
-body[data-part="night"]     { --glow: #9FB3FF; --glow2: #C9D2FF; }
-body[data-part="morning"]   { --glow: #FFCE94; --glow2: #FFE6C2; }
-body[data-part="afternoon"] { --glow: #BFD9FF; --glow2: #E3E9FF; }
-body[data-part="evening"]   { --glow: #FFBFA8; --glow2: #FFD9E0; }
 
 html { height: 100%; }
 body {
-  position: relative;
-  box-sizing: border-box;
+  margin: 0;
   min-height: 100%;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  place-items: center;
+  overflow-x: hidden;
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.5;
-  padding-block: clamp(28px, 9vh, 96px) clamp(76px, 13vh, 130px);
+  padding: 32px 16px 96px;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 
-.glow {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(50rem 28rem at 50% -8%, color-mix(in srgb, var(--glow) var(--glow-strength), transparent), transparent 72%),
-    radial-gradient(42rem 22rem at 50% 108%, color-mix(in srgb, var(--glow2) var(--glow-strength), transparent), transparent 72%);
+/* Blobs */
+.blobs { position: fixed; inset: 0; overflow: hidden; pointer-events: none; }
+.blob {
+  position: absolute;
+  left: var(--x); top: var(--y);
+  width: var(--w); height: var(--h);
+  margin: calc(var(--h) / -2) 0 0 calc(var(--w) / -2);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--c) 0%, color-mix(in srgb, var(--c) 50%, transparent) 40%, transparent 100%);
+  opacity: calc(var(--o) * var(--k));
+  animation: drift var(--t) ease-in-out infinite alternate;
+  animation-delay: var(--d, 0s);
+  will-change: transform;
 }
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(var(--dx), var(--dy), 0) scale(1.1); }
+}
+.b1 { --c: #2F6BFF; --x: 30%;  --y: -4%;  --w: 100vw; --h: 72vh;  --o: 0.95; --dx: 14vw;  --dy: 7vh;  --t: 17s; }
+.b2 { --c: #9B7BFF; --x: 100%; --y: 12%;  --w: 72vw;  --h: 85vh;  --o: 0.8;  --dx: -12vw; --dy: 9vh;  --t: 21s; --d: -6s; }
+.b3 { --c: #35C6FF; --x: -2%;  --y: 62%;  --w: 58vw;  --h: 94vh;  --o: 0.75; --dx: 11vw;  --dy: -9vh; --t: 19s; --d: -3s; }
+.b4 { --c: #FF9F4A; --x: 4%;   --y: 104%; --w: 94vw;  --h: 76vh;  --o: 0.95; --dx: 14vw;  --dy: -8vh; --t: 23s; --d: -9s; }
+.b5 { --c: #FF5FA2; --x: 92%;  --y: 104%; --w: 94vw;  --h: 76vh;  --o: 0.95; --dx: -14vw; --dy: -9vh; --t: 20s; --d: -12s; }
+.b6 { --c: #FFD36B; --x: 55%;  --y: 108%; --w: 68vw;  --h: 48vh;  --o: 0.55; --dx: 12vw;  --dy: -7vh; --t: 25s; --d: -15s; }
 
-.wrap {
+/* Begroeting */
+.center {
   position: relative;
-  flex: 1;
   width: 100%;
-  max-width: 740px;
-  margin-inline: auto;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 40px;
-}
-.wrap > * { animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-.wrap > :nth-child(2) { animation-delay: 0.08s; }
-@keyframes rise { from { transform: translateY(10px); } to { transform: none; } }
-
-.head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  text-align: center;
+  justify-content: center;
+  transform: translateY(-3vh);
 }
 h1 {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.2rem, 8.5vw, 4.2rem);
-  line-height: 1.04;
+  font-size: clamp(3.4rem, 10vw, 13rem);
+  line-height: 1;
   letter-spacing: -0.025em;
-  text-wrap: balance;
+  white-space: nowrap;
+  text-align: center;
 }
 h1 .name { color: var(--accent); }
 
-.meta {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-.date { display: inline-block; }
-.date::first-letter { text-transform: uppercase; }
-.clock {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.04em;
-  font-variant-numeric: tabular-nums;
-  color: var(--fg);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 3px 14px;
-}
-
-.search-block {
-  width: 100%;
-  max-width: 640px;
-  margin-inline: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  min-width: 0;
-}
-
-.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-.chip {
-  font: inherit;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--muted);
-  background: color-mix(in srgb, var(--surface) 70%, transparent);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 6px 14px;
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-}
-.chip:hover { color: var(--fg); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
-.chip[aria-pressed="true"] {
-  color: var(--chip-fg);
-  background: var(--chip-bg);
-  border-color: transparent;
-  font-weight: 600;
-}
-
-.search {
+/* ===== Zoekbalk linksonder ===== */
+.search-fab {
+  position: fixed;
+  z-index: 5;
+  left: calc(16px + env(safe-area-inset-left, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: var(--surface);
-  border: 1px solid var(--line);
+  height: 48px;
+  width: 48px;
+  padding: 0;
   border-radius: 999px;
-  padding: 7px 7px 7px 20px;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--line);
   box-shadow: var(--shadow);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  overflow: hidden;
+  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              padding 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              gap 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.15s ease;
+  cursor: pointer;
 }
-.search:focus-within {
-  border-color: var(--accent);
-  box-shadow: var(--shadow), 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+.search-fab:hover,
+.search-fab:focus-within {
+  width: min(340px, calc(100vw - 100px));
+  padding: 0 14px;
+  gap: 10px;
+  cursor: text;
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
 }
-.search .ico { flex: none; color: var(--muted); }
-.search input {
+.search-fab .ico {
+  flex: none;
+  width: 22px; height: 22px;
+  margin-left: 13px;
+  color: var(--muted);
+  transition: margin 0.28s cubic-bezier(0.4, 0, 0.2, 1), color 0.15s ease;
+  pointer-events: none;
+}
+.search-fab:hover .ico,
+.search-fab:focus-within .ico {
+  margin-left: 0;
+  color: var(--accent);
+}
+.search-fab input {
   flex: 1;
   min-width: 0;
+  width: 0;
+  opacity: 0;
   border: 0;
   outline: none;
   background: transparent;
   color: var(--fg);
   font: inherit;
-  font-size: 1.12rem;
-  padding: 11px 0;
+  font-size: 1.05rem;
+  padding: 10px 0;
+  transition: opacity 0.2s ease 0.04s;
 }
-.search input::placeholder { color: var(--muted); }
-.search button {
-  flex: none;
-  border: 0;
-  border-radius: 999px;
-  background: var(--accent);
-  color: var(--accent-fg);
-  font: inherit;
-  font-weight: 600;
-  padding: 12px 24px;
-  cursor: pointer;
-  transition: filter 0.15s ease;
+.search-fab:hover input,
+.search-fab:focus-within input {
+  width: auto;
+  opacity: 1;
 }
-.search button:hover { filter: brightness(1.1); }
+.search-fab input::placeholder { color: var(--muted); }
 
-.nexi {
+/* ===== Nexi rechtsonder (compact) ===== */
+.nexi-fab {
   position: fixed;
-  z-index: 5;
+  z-index: 6;
   right: calc(16px + env(safe-area-inset-right, 0px));
   bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 14px 5px 5px;
-  border-radius: 999px;
-  background: var(--surface);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
-  color: var(--fg);
-  text-decoration: none;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition:
+    width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.15s ease;
 }
-.nexi:hover { border-color: var(--accent); transform: translateY(-1px); }
-.mark {
+.nexi-fab:hover,
+.nexi-fab.open,
+.nexi-fab:focus-within {
+  width: min(320px, calc(100vw - 32px));
+  height: auto;
+  max-height: 220px;
+  border-radius: 18px;
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+}
+
+/* Logo (alleen zichtbaar als gesloten) */
+.nexi-toggle {
   flex: none;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+.nexi-fab:hover .nexi-toggle,
+.nexi-fab.open .nexi-toggle,
+.nexi-fab:focus-within .nexi-toggle {
+  display: none;
+}
+.mark {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -257,124 +251,164 @@ h1 .name { color: var(--accent); }
 }
 .mark.fallback { background: var(--mark-bg); color: var(--mark-fg); }
 .mark img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.nexi-name { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; line-height: 1; }
 
-.chip:focus-visible,
-.nexi:focus-visible,
-.search button:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
+/* Compact paneel */
+.nexi-panel {
+  display: none;
+  flex-direction: column;
+  min-height: 0;
+  opacity: 0;
+  transition: opacity 0.18s ease 0.06s;
 }
+.nexi-fab:hover .nexi-panel,
+.nexi-fab.open .nexi-panel,
+.nexi-fab:focus-within .nexi-panel {
+  display: flex;
+  opacity: 1;
+}
+
+/* Alleen laatste antwoord */
+.nexi-last {
+  padding: 12px 14px 6px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--fg);
+  max-height: 110px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.nexi-last:empty { display: none; }
+.nexi-last.system {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+/* Invoerbalk */
+.nexi-composer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px 12px;
+  flex-shrink: 0;
+}
+.nexi-composer input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 65%, transparent);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  outline: none;
+}
+.nexi-composer input:focus {
+  border-color: var(--accent);
+}
+.nexi-composer input::placeholder { color: var(--muted); }
+.nexi-send {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-size: 1rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.nexi-send:hover { filter: brightness(1.1); }
+.nexi-send:disabled { opacity: 0.45; cursor: default; }
 
 .sr {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: 1px; height: 1px;
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
 }
 
-@media (max-width: 480px) {
-  .search button { padding: 12px 18px; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .wrap > * { animation: none; }
-  .nexi, .chip, .search { transition: none; }
-  .nexi:hover { transform: none; }
+  .blob { animation: none; }
+  .search-fab, .nexi-fab { transition: none; }
 }
 </style>
+</head>
+<body>
 
-<div class="glow" aria-hidden="true"></div>
+<div class="blobs" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+  <div class="blob b5"></div>
+  <div class="blob b6"></div>
+</div>
 
-<main class="wrap">
-  <div class="head">
-    <h1><span id="greet">Goedemorgen</span>, <span class="name">Jim</span>.</h1>
-    <div class="meta">
-      <span class="date" id="date"></span>
-      <span class="clock" id="clock">--:--</span>
-    </div>
-  </div>
-
-  <section class="search-block" aria-label="Zoeken">
-    <div class="chips" role="group" aria-label="Zoeken in">
-      <button type="button" class="chip" data-engine="web" aria-pressed="true">Web</button>
-      <button type="button" class="chip" data-engine="images" aria-pressed="false">Afbeeldingen</button>
-      <button type="button" class="chip" data-engine="video" aria-pressed="false">Video's</button>
-      <button type="button" class="chip" data-engine="news" aria-pressed="false">Nieuws</button>
-      <button type="button" class="chip" data-engine="maps" aria-pressed="false">Kaarten</button>
-    </div>
-    <form class="search" id="searchForm" role="search">
-      <svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
-      <label class="sr" for="q">Zoekopdracht</label>
-      <input id="q" type="search" name="q" placeholder="Zoek op Bing" autocomplete="off">
-      <button type="submit">Zoeken</button>
-    </form>
-  </section>
+<main class="center">
+  <h1>Hallo, <span class="name">Jim</span>.</h1>
 </main>
 
-<a class="nexi" href="https://jimisdebest.github.io/nexi/train" target="_blank" rel="noopener noreferrer" aria-label="Open Nexi" title="Open Nexi">
-  <span class="mark" id="nexiMark" aria-hidden="true"><img id="nexiLogo" src="https://jimisdebest.github.io/nexi/logo.png" alt="" width="30" height="30"><span id="nexiN" hidden>N</span></span>
-  <span class="nexi-name">Nexi</span>
-</a>
+<!-- Zoekbalk linksonder -->
+<form class="search-fab" id="searchForm" role="search" title="Zoeken">
+  <svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+    <circle cx="11" cy="11" r="7"></circle>
+    <path d="m20 20-3.5-3.5"></path>
+  </svg>
+  <label class="sr" for="q">Zoekopdracht</label>
+  <input id="q" type="search" name="q" placeholder="Zoek op Bing" autocomplete="off">
+</form>
+
+<!-- Nexi rechtsonder (compact) -->
+<div class="nexi-fab" id="nexiFab" title="Nexi">
+  <button type="button" class="nexi-toggle" id="nexiToggle" aria-label="Open Nexi">
+    <span class="mark" id="nexiMark">
+      <img id="nexiLogo" src="https://jimisdebest.github.io/nexi/logo.png" alt="" width="30" height="30">
+      <span id="nexiN" hidden>N</span>
+    </span>
+  </button>
+
+  <div class="nexi-panel">
+    <div class="nexi-last" id="nexiLast"></div>
+    <form class="nexi-composer" id="nexiForm">
+      <label class="sr" for="nexiInput">Bericht</label>
+      <input id="nexiInput" type="text" placeholder="Typ een bericht…" autocomplete="off">
+      <button type="submit" class="nexi-send" id="nexiSend" title="Versturen">↑</button>
+    </form>
+  </div>
+</div>
 
 <script>
 (function () {
-  var engines = {
-    web:    { ph: 'Zoek op Bing',         home: 'https://www.bing.com/',       search: 'https://www.bing.com/search?q=' },
-    images: { ph: 'Zoek afbeeldingen',    home: 'https://www.bing.com/images', search: 'https://www.bing.com/images/search?q=' },
-    video:  { ph: 'Zoek video’s',    home: 'https://www.bing.com/videos', search: 'https://www.bing.com/videos/search?q=' },
-    news:   { ph: 'Zoek nieuws',          home: 'https://www.bing.com/news',   search: 'https://www.bing.com/news/search?q=' },
-    maps:   { ph: 'Zoek plaats of adres', home: 'https://www.bing.com/maps',   search: 'https://www.bing.com/maps?q=' }
-  };
-  var current = 'web';
-  var input = document.getElementById('q');
-  var form = document.getElementById('searchForm');
-  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  /* ========== Zoeken ========== */
+  var searchForm = document.getElementById('searchForm');
+  var searchInput = document.getElementById('q');
 
-  function applyEngine() {
-    chips.forEach(function (c) {
-      c.setAttribute('aria-pressed', c.getAttribute('data-engine') === current ? 'true' : 'false');
-    });
-    input.placeholder = engines[current].ph;
-  }
-
-  // Altijd een schone start: lege zoekbalk en weer op Web.
-  function reset() {
-    current = 'web';
-    input.value = '';
-    applyEngine();
-  }
-
-  chips.forEach(function (c) {
-    c.addEventListener('click', function () {
-      current = c.getAttribute('data-engine');
-      applyEngine();
-      input.focus();
-    });
+  searchForm.addEventListener('click', function () {
+    if (document.activeElement !== searchInput) searchInput.focus();
   });
-
-  // Zoeken vervangt het huidige tabblad door Bing.
-  form.addEventListener('submit', function (ev) {
+  searchForm.addEventListener('submit', function (ev) {
     ev.preventDefault();
-    var e = engines[current];
-    var v = input.value.trim();
+    var v = searchInput.value.trim();
     var a = document.createElement('a');
-    a.href = v ? e.search + encodeURIComponent(v) : e.home;
+    a.href = v ? 'https://www.bing.com/search?q=' + encodeURIComponent(v) : 'https://www.bing.com/';
     a.target = '_top';
     a.rel = 'noopener noreferrer';
     document.body.appendChild(a);
     a.click();
     a.remove();
   });
-
-  // Terug met de terugknop (ook uit de cache): zoekterm weg, chip weer op Web.
   window.addEventListener('pageshow', function () {
-    reset();
-    setTimeout(reset, 0);
+    searchInput.value = '';
+    searchInput.blur();
   });
 
-  // Nexi-logo, met letter als het logo niet laadt.
+  /* ========== Logo fallback ========== */
   var mark = document.getElementById('nexiMark');
   var logo = document.getElementById('nexiLogo');
   var letter = document.getElementById('nexiN');
@@ -386,34 +420,317 @@ h1 .name { color: var(--accent); }
   logo.addEventListener('error', logoFallback);
   if (logo.complete && logo.naturalWidth === 0) logoFallback();
 
-  var greetEl = document.getElementById('greet');
-  var clockEl = document.getElementById('clock');
-  var dateEl = document.getElementById('date');
+  /* ========== Open/dicht ========== */
+  var nexiFab = document.getElementById('nexiFab');
+  var nexiToggle = document.getElementById('nexiToggle');
+  var nexiInput = document.getElementById('nexiInput');
 
-  function pad(n) { return n < 10 ? '0' + n : String(n); }
+  nexiToggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    nexiFab.classList.add('open');
+    setTimeout(function () { nexiInput.focus(); }, 40);
+  });
 
-  function tick() {
-    var d = new Date();
-    var h = d.getHours();
-    var part = h < 6 ? 'night' : h < 12 ? 'morning' : h < 18 ? 'afternoon' : 'evening';
-    var g = { night: 'Goedenacht', morning: 'Goedemorgen', afternoon: 'Goedemiddag', evening: 'Goedenavond' }[part];
-    greetEl.textContent = g;
-    document.body.setAttribute('data-part', part);
-    clockEl.textContent = pad(h) + ':' + pad(d.getMinutes());
+  nexiFab.addEventListener('mouseleave', function () {
+    if (!nexiFab.contains(document.activeElement)) {
+      nexiFab.classList.remove('open');
+    }
+  });
+
+  nexiInput.addEventListener('blur', function () {
+    setTimeout(function () {
+      if (!nexiFab.matches(':hover') && !nexiFab.contains(document.activeElement)) {
+        nexiFab.classList.remove('open');
+      }
+    }, 120);
+  });
+
+  /* ========== Lerende Nexi (compact) ========== */
+  var LEARN_KEY = 'nexi_start_learned_v1';
+  var UNKNOWN_BELOW = 0.35;
+  var qaDatabase = [];
+  var learned = [];
+  var pendingLearn = null;
+  var thinking = false;
+  var lastReply = { text: 'Hoi! Stel me een vraag. Weet ik iets niet, dan leer ik van jouw volgende antwoord.', system: true };
+
+  try {
+    learned = JSON.parse(localStorage.getItem(LEARN_KEY) || '[]');
+    if (!Array.isArray(learned)) learned = [];
+  } catch (e) { learned = []; }
+
+  function saveLearned() {
+    try { localStorage.setItem(LEARN_KEY, JSON.stringify(learned)); } catch (e) {}
+  }
+
+  function normalize(s) {
+    return String(s || '')
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  var STOP = new Set(['de','het','een','ik','je','jij','we','wij','ze','zij','mij','me','is','was','zijn','ben','heb','heeft','had','en','of','maar','dat','dit','wat','hoe','waar','wie','aan','in','op','voor','van','met','naar','the','a','an','and','or','are','you','i','it','to','can','my','your']);
+
+  function tokenize(s) {
+    return normalize(s).split(' ').filter(function (w) { return w.length > 1 && !STOP.has(w); });
+  }
+
+  function similarity(a, b) {
+    if (!a || !b) return 0;
+    if (a === b) return 1;
+    var m = a.length, n = b.length;
+    if (!m || !n) return 0;
+    var dp = new Array(n + 1);
+    for (var j = 0; j <= n; j++) dp[j] = j;
+    for (var i = 1; i <= m; i++) {
+      var prev = dp[0];
+      dp[0] = i;
+      for (var j = 1; j <= n; j++) {
+        var tmp = dp[j];
+        dp[j] = Math.min(dp[j] + 1, dp[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1));
+        prev = tmp;
+      }
+    }
+    return 1 - dp[n] / Math.max(m, n);
+  }
+
+  function dice(a, b) {
+    if (a.length < 2 || b.length < 2) return a === b ? 1 : 0;
+    var A = new Set(), B = new Set();
+    for (var i = 0; i < a.length - 1; i++) A.add(a.slice(i, i + 2));
+    for (var i = 0; i < b.length - 1; i++) B.add(b.slice(i, i + 2));
+    var inter = 0;
+    A.forEach(function (g) { if (B.has(g)) inter++; });
+    return (2 * inter) / (A.size + B.size);
+  }
+
+  function score(query, target) {
+    var q = normalize(query), t = normalize(target);
+    if (!q || !t) return 0;
+    if (q === t) return 1;
+    var qw = tokenize(q), tw = tokenize(t);
+    if (!qw.length || !tw.length) return 0;
+    var tSet = new Set(tw);
+    var exact = 0, fuzzy = 0;
+    qw.forEach(function (w) {
+      if (tSet.has(w)) { exact++; return; }
+      var best = 0;
+      tw.forEach(function (tw2) {
+        var s = similarity(w, tw2);
+        if (s > best) best = s;
+      });
+      if (best >= 0.82) fuzzy += best;
+    });
+    var tokenScore = (exact + fuzzy * 0.85) / Math.max(qw.length, tw.length);
+    var bg = dice(q, t);
+    var s = 0.60 * tokenScore + 0.35 * bg;
+    if (exact === qw.length && qw.length >= 2) s += 0.10;
+    if (t.includes(q) || q.includes(t)) s += 0.12;
+    return Math.min(1, s);
+  }
+
+  function bestMatch(db, text) {
+    var best = null, highest = 0;
+    db.forEach(function (item) {
+      var s = score(text, item.vraag);
+      if (s > highest) { highest = s; best = item; }
+    });
+    return { match: best, score: highest };
+  }
+
+  function formatAnswer(text) {
+    var t = String(text || '').trim();
+    if (!t) return '';
+    t = t.charAt(0).toUpperCase() + t.slice(1);
+    if (!/[.!?…]$/.test(t)) t += '.';
+    return t;
+  }
+
+  function looksLikeQuestion(text) {
+    var t = String(text).trim().toLowerCase();
+    if (!t) return false;
+    if (t.endsWith('?')) return true;
+    return /^(wat|hoe|waar|wanneer|waarom|wie|welke|is|kan|kun|heb|heeft|doet|denk|vind|wil|mag|moet)\b/i.test(t);
+  }
+
+  var SKIP = new Set(['ja','nee','ok','oke','oké','dank','thanks','bedankt','yes','no','tuurlijk','zeker','goed','prima','top','nice','haha','lol','hm','hmm']);
+
+  async function loadResponses() {
     try {
-      dateEl.textContent = d.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long' });
+      var res = await fetch('https://raw.githubusercontent.com/jimisdebest/nexi/main/reacties.txt');
+      if (!res.ok) throw new Error();
+      var text = await res.text();
+      qaDatabase = text.split(/\r?\n/).map(function (line) {
+        var i = line.indexOf('=');
+        if (i < 0) return null;
+        var vraag = line.slice(0, i).trim();
+        var antwoord = line.slice(i + 1).trim();
+        if (!vraag || !antwoord) return null;
+        return { vraag: vraag, antwoord: antwoord };
+      }).filter(Boolean);
     } catch (e) {
-      dateEl.textContent = '';
+      qaDatabase = [];
     }
   }
 
-  reset();
-  tick();
-  setInterval(tick, 1000);
-  try {
-    if (window.matchMedia && window.matchMedia('(pointer: fine)').matches) input.focus();
-  } catch (e) {}
+  function getAnswer(text) {
+    if (/\b(hoe|wat)\b.*\b(leer|leren|train)/i.test(text) || /leer.*(je|jij|nex)/i.test(text)) {
+      return {
+        answer: 'Ik leer terwijl we praten. Als ik iets niet weet, typ je gewoon het antwoord in je volgende bericht.\n\nHandmatig: /leer vraag = antwoord\nLijst: /lijst',
+        matched: true
+      };
+    }
+    if (/wat kun je|wat kan je|^help$/i.test(text)) {
+      return {
+        answer: 'Ik ben Nexi. Ik leer van jouw antwoorden.\n\n• Weet ik iets niet → typ het antwoord\n• /leer vraag = antwoord\n• /lijst\n• /verwijder vraag',
+        matched: true
+      };
+    }
+
+    var learnedMatch = bestMatch(learned, text);
+    var baseMatch = bestMatch(qaDatabase, text);
+
+    var match = null, best = 0;
+    if (learnedMatch.match && learnedMatch.score > best) {
+      match = learnedMatch.match; best = learnedMatch.score;
+    }
+    if (baseMatch.match && baseMatch.score > best) {
+      match = baseMatch.match; best = baseMatch.score;
+    }
+
+    if (match && best >= UNKNOWN_BELOW) {
+      return { answer: match.antwoord, matched: true };
+    }
+    return {
+      answer: 'Dat weet ik nog niet — typ het antwoord maar, dan onthoud ik het.',
+      matched: false
+    };
+  }
+
+  function learnFromPair(vraag, antwoord) {
+    vraag = String(vraag || '').trim();
+    antwoord = String(antwoord || '').trim();
+    if (!vraag || !antwoord || normalize(vraag).length < 3) return false;
+    var nq = normalize(vraag);
+    learned = learned.filter(function (x) { return normalize(x.vraag) !== nq; });
+    learned.push({
+      vraag: formatAnswer(vraag),
+      antwoord: formatAnswer(antwoord),
+      time: Date.now()
+    });
+    saveLearned();
+    return true;
+  }
+
+  function forget(vraag) {
+    var nq = normalize(vraag);
+    var before = learned.length;
+    learned = learned.filter(function (x) { return normalize(x.vraag) !== nq; });
+    if (learned.length !== before) { saveLearned(); return true; }
+    return false;
+  }
+
+  /* Alleen laatste antwoord tonen */
+  var lastEl = document.getElementById('nexiLast');
+  var sendBtn = document.getElementById('nexiSend');
+
+  function showLast(text, isSystem) {
+    lastReply = { text: text, system: !!isSystem };
+    lastEl.textContent = text;
+    lastEl.className = 'nexi-last' + (isSystem ? ' system' : '');
+  }
+
+  function parseCommand(text) {
+    var t = text.trim();
+    if (!t.startsWith('/')) return null;
+    if (t.startsWith('/leer ')) {
+      var rest = t.slice(6);
+      var m = rest.match(/^(.*?)\s*(?:=>|=|:|\|)\s*([\s\S]+)$/);
+      if (!m) return { type: 'unknown', hint: 'Gebruik: /leer vraag = antwoord' };
+      return { type: 'learn', vraag: m[1].trim(), antwoord: m[2].trim() };
+    }
+    if (t.startsWith('/verwijder ')) return { type: 'forget', vraag: t.slice(11).trim() };
+    if (t === '/lijst' || t === '/kennis') return { type: 'list' };
+    if (t === '/help' || t === '/?') return { type: 'help' };
+    return { type: 'unknown', hint: 'Onbekend commando. Typ /help.' };
+  }
+
+  async function handleSend() {
+    if (thinking) return;
+    var text = nexiInput.value.trim();
+    if (!text) return;
+
+    var cmd = parseCommand(text);
+    if (cmd) {
+      nexiInput.value = '';
+      if (cmd.type === 'learn') {
+        if (learnFromPair(cmd.vraag, cmd.antwoord)) {
+          showLast('📌 Geleerd: "' + cmd.vraag.slice(0, 48) + '"', true);
+        } else {
+          showLast('Kon niet leren.', true);
+        }
+      } else if (cmd.type === 'forget') {
+        if (forget(cmd.vraag)) showLast('🗑️ Vergeten.', true);
+        else showLast('Niets gevonden.', true);
+      } else if (cmd.type === 'list') {
+        if (!learned.length) showLast('Nog geen geleerde kennis.', true);
+        else {
+          var lines = learned.slice(-6).reverse().map(function (x, i) {
+            return (i + 1) + '. ' + x.vraag.slice(0, 36) + ' → ' + x.antwoord.slice(0, 40);
+          });
+          showLast('📚 ' + lines.join('\n'), true);
+        }
+      } else if (cmd.type === 'help') {
+        showLast('Commando\'s:\n/leer vraag = antwoord\n/verwijder vraag\n/lijst\n/help', true);
+      } else {
+        showLast(cmd.hint || 'Onbekend commando', true);
+      }
+      return;
+    }
+
+    /* Auto-learn */
+    if (pendingLearn && !looksLikeQuestion(text)) {
+      var lower = text.toLowerCase().trim();
+      if (text.length >= 3 && !SKIP.has(lower)) {
+        if (learnFromPair(pendingLearn, text)) {
+          nexiInput.value = '';
+          showLast('📌 Geleerd!', true);
+          pendingLearn = null;
+          return;
+        }
+      }
+    }
+    pendingLearn = null;
+
+    nexiInput.value = '';
+    thinking = true;
+    sendBtn.disabled = true;
+
+    await new Promise(function (r) { setTimeout(r, 220); });
+
+    var response = getAnswer(text);
+    showLast(response.answer, false);
+
+    if (!response.matched) pendingLearn = text;
+    else pendingLearn = null;
+
+    thinking = false;
+    sendBtn.disabled = false;
+    nexiInput.focus();
+  }
+
+  document.getElementById('nexiForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    handleSend();
+  });
+
+  /* Init */
+  showLast(lastReply.text, true);
+  loadResponses();
 })();
 </script>
-
+</body>
 </html>
